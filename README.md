@@ -43,6 +43,13 @@ A simple and robust backend for a Mobile Point-of-Sale (mPOS) system built using
 - ZXing (QR Code generation)
 - Maven
 
+
+## 📸 Swagger UI Screenshot
+
+You can view the Swagger UI screenshot here:
+
+![Swagger UI Screenshot](images/Screenshot.jpg)
+
 ---
 🔹 Product Management Endpoints
 -------------------------------------
