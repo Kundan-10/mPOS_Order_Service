@@ -27,10 +27,8 @@ A simple and robust backend for a Mobile Point-of-Sale (mPOS) system built using
 - Return as Base64 string and downloadable image
 
 ### 🧪 Bonus Features (Optional)
-- JWT-based authentication (can be extended)
 - H2 In-Memory Database
 - Swagger API Docs
-- Docker-ready (optional)
 
 ---
 
