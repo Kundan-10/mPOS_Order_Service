@@ -44,6 +44,21 @@ A simple and robust backend for a Mobile Point-of-Sale (mPOS) system built using
 - Maven
 
 ---
+🔹 Product Management Endpoints
+-------------------------------------
+POST   /products           - Add a new product  
+GET    /products           - List all products  
+GET    /products/{id}      - Get product by ID  
+
+🔹 Order Management Endpoints
+-------------------------------------
+POST   /orders             - Create a new order  
+GET    /orders             - List all orders  
+
+🔹 QR Code Generation Endpoints
+-------------------------------------
+GET    /qr/{orderId}              - Get QR code as Base64 string  
+GET    /qr/download/{orderId}     - Download QR code image (PNG)
 
 ## ⚙️ How to Run
 
