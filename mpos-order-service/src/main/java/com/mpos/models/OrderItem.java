@@ -1,5 +1,7 @@
 package com.mpos.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +11,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Entity
 public class OrderItem {
 
@@ -24,10 +25,12 @@ public class OrderItem {
     private double price;
 
     @ManyToOne
-    private Product product;
+    @JsonBackReference
+    private Order order;
 
     @ManyToOne
-    private Order order;
+    @JsonIgnore
+    private Product product;
 
     public OrderItem(){}
     public OrderItem(Integer id, int quantity, double price, Product product, Order order) {

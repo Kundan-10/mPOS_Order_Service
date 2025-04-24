@@ -1,5 +1,6 @@
 package com.mpos.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -27,8 +28,8 @@ public class Order {
 
     private LocalDateTime dateTime;
 
-    @NotEmpty(message = "Order must have at least one item")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<OrderItem> items;
 
     public Order(){}

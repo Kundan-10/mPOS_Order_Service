@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/qr")
 @Tag(name = "Qr Management")
@@ -27,7 +29,7 @@ public class QRcontroller {
             @RequestParam String orderId,
             @RequestParam String customerName,
             @RequestParam double totalAmount
-            ) throws QRcodeException, WriterException {
+            ) throws QRcodeException, WriterException, IOException {
         String base64 = qRcodeService.generateQRCodeBase64(orderId, customerName, totalAmount);
         return new ResponseEntity<>(base64, HttpStatus.OK);
     }

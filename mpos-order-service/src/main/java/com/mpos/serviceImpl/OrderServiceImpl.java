@@ -33,38 +33,55 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public Order createOrder(String customerName, Map<Integer, Integer> items) throws ProductException {
 
+        // Fetch all products by their IDs
         List<Product> products = productRepo.findAllById(items.keySet());
-        if(products.size() != items.size()) throw new ProductException("Some products not found");
+
+        if (products.size() != items.size()) {
+            throw new ProductException("Some products not found.");
+        }
 
         double totalAmount = 0;
         List<OrderItem> orderItems = new ArrayList<>();
-        for(Product product: products){
-            int qty = items.get(product.getId());
-            if(product.getStock() < qty){
-                throw new ProductException("Not enough stock for product: "+ product.getName());
+
+        for (Product product : products) {
+            Integer qty = items.get(product.getId());
+
+            if (qty == null) {
+                throw new ProductException("Missing quantity for product: " + product.getName());
             }
+
+            if (product.getStock() < qty) {
+                throw new ProductException("Insufficient stock for product: " + product.getName());
+            }
+
             product.setStock(product.getStock() - qty);
 
+            // Create OrderItem with product reference
             OrderItem item = new OrderItem();
-             item.setQuantity(qty);
-             item.setPrice(product.getPrice());
-             orderItems.add(item);
+            item.setProduct(product);  // ✅ Important
+            item.setQuantity(qty);
+            item.setPrice(product.getPrice()); // per unit price
 
-             totalAmount += product.getPrice() * qty;
+            orderItems.add(item);
+
+            totalAmount += product.getPrice() * qty;
         }
+
         productRepo.saveAll(products);
+
         Order order = new Order();
-        order.setOrderId(UUID.randomUUID().toString());
+        order.setOrderId("ORD-" + UUID.randomUUID().toString().substring(0, 8));
         order.setCustomerName(customerName);
-        order.setTotalAmount(totalAmount);
         order.setDateTime(LocalDateTime.now());
+        order.setTotalAmount(totalAmount);
         order.setItems(orderItems);
 
-        for(OrderItem item:orderItems){
+        // Set reverse relationship
+        for (OrderItem item : orderItems) {
             item.setOrder(order);
         }
-        return  orderRepo.save(order);
 
+        return orderRepo.save(order);
     }
 
     @Override
