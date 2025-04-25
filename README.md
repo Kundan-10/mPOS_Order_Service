@@ -52,6 +52,58 @@ You can view the Swagger UI screenshot here:
 ![Swagger UI Screenshot](images/Screenshot.jpg)
 
 ---
+
+## 🔐 JWT Authentication in Swagger
+
+To access protected APIs (like `/api/v1/orders`, etc.), you must authenticate and provide the **JWT token** in Swagger UI.
+
+### ✅ Steps to Test JWT Auth from Swagger
+
+1. **Start the Application**
+   - Run the Spring Boot app.
+   - Navigate to: [http://localhost:8888/swagger-ui/index.html](http://localhost:8888/swagger-ui/index.html)
+
+2. **Register or Login**
+   - Use `auth/register` or `auth/login` to get your **access token**.
+
+3. **Copy the JWT Token**
+   - You will get a response like:
+
+     ```json
+     {
+       "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+     }
+     ```
+
+4. **Authorize in Swagger**
+   - Click the **Authorize** button at the top-right of Swagger.
+   - Enter the token as:
+     ```
+     Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+     ```
+
+   - Click **Authorize**, then **Close**.
+
+5. **Access Protected APIs**
+   - Now you can access any protected routes like:
+     - `GET /api/v1/orders/all`
+     - `POST /api/v1/orders/add`
+     - etc.
+
+---
+
+## 🖼️ Screenshot Example
+
+> Add your Swagger screenshot here, showing token input and usage
+
+![JWT Swagger Screenshot](images/swagger-jwt-auth.png)
+
+---
+
+## 🖼️ Screenshot Example
+
+![JWT Swagger Screenshot](screenshots/swagger-jwt-auth.png)
+-----------------------------------
 🔹 Product Management Endpoints
 -------------------------------------
 POST   /products           - Add a new product  
