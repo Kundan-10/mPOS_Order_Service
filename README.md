@@ -94,8 +94,6 @@ To access protected APIs (like `/api/v1/orders`, etc.), you must authenticate an
 
 ## 🖼️ Screenshot Example
 
-> Add your Swagger screenshot here, showing token input and usage
-
 ![JWT Swagger Screenshot](images/swagger-jwt-auth.png)
 
 ---
