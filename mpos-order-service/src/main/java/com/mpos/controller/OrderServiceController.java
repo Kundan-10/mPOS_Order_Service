@@ -34,7 +34,7 @@ public class OrderServiceController {
     }
 
     @Operation(summary = "List all product")
-    @GetMapping("/{id}")
+    @GetMapping()
     public ResponseEntity<List<Order>>getListOfProduct() throws ProductNotFoundException, OrderNotFoundException {
         List<Order> orders = orderService.getAllOrders();
         return new ResponseEntity<>(orders, HttpStatus.OK);

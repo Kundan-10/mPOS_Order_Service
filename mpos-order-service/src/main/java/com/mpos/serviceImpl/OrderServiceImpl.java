@@ -8,8 +8,8 @@ import com.mpos.models.Product;
 import com.mpos.repository.OrderRepository;
 import com.mpos.repository.ProductRepository;
 import com.mpos.service.OrderService;
+
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -55,12 +55,10 @@ public class OrderServiceImpl implements OrderService {
             }
 
             product.setStock(product.getStock() - qty);
-
-            // Create OrderItem with product reference
             OrderItem item = new OrderItem();
-            item.setProduct(product);  // ✅ Important
+            item.setProduct(product);
             item.setQuantity(qty);
-            item.setPrice(product.getPrice()); // per unit price
+            item.setPrice(product.getPrice());
 
             orderItems.add(item);
 
@@ -76,7 +74,6 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalAmount(totalAmount);
         order.setItems(orderItems);
 
-        // Set reverse relationship
         for (OrderItem item : orderItems) {
             item.setOrder(order);
         }

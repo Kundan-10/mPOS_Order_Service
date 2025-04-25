@@ -40,19 +40,15 @@ public class QRcodeServiceImpl implements QRcodeService {
         File dir = new File(desktopPath);
         if (!dir.exists()) dir.mkdirs();
 
-        // Define the file path for saving the QR code
         String filePath = desktopPath + "/" + orderId + ".png";
         File qrFile = new File(filePath);
 
-        // Write the image to a file
         ImageIO.write(image, "png", qrFile);
 
-        // Convert the image to Base64 format for returning as a response
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(image, "png", baos);
         byte[] imageBytes = baos.toByteArray();
 
-        // Return the Base64 encoded string
         return Base64.getEncoder().encodeToString(imageBytes);
     }
 }

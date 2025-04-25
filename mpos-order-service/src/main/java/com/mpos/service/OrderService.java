@@ -14,5 +14,4 @@ public interface OrderService {
 
      List<Order> getAllOrders() throws OrderNotFoundException;
 
-
 }
