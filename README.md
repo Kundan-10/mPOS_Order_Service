@@ -94,7 +94,7 @@ To access protected APIs (like `/api/v1/orders`, etc.), you must authenticate an
 
 ## 🖼️ Screenshot Example
 
-![JWT Swagger Screenshot](images/JWT Swagger Screenshot.jpg)
+![SJWT Swagger Screenshott](images/JWT.jpg)
 
 -----------------------------------
 🔹 Product Management Endpoints
