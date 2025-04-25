@@ -29,6 +29,7 @@ A simple and robust backend for a Mobile Point-of-Sale (mPOS) system built using
 ### 🧪 Bonus Features (Optional)
 - H2 In-Memory Database
 - Swagger API Docs
+- Jwt authentication
 
 ---
 
