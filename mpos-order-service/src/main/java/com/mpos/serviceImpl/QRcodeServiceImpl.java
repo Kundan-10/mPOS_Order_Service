@@ -20,35 +20,29 @@ import java.util.Base64;
 
 @Service
 public class QRcodeServiceImpl implements QRcodeService {
-    @Override
-    public String generateQRCodeBase64(String orderId, String customerName, double totalAmount) throws WriterException, QRcodeException, IOException {
 
-        String qrContent = "OrderID: " + orderId + "\nTotal Rs. " + totalAmount + "\nCustomer: " + customerName;
+        private static final int SIZE = 250;
+        private static final String FORMAT = "png";
+        private static final String SAVE_PATH = "C:/Users/coolk/OneDrive/Desktop/mpos-order-service/mPOS_Order_Service/qr-codes";
 
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        @Override
+        public String generateQRCodeBase64(String orderId, String customerName, double totalAmount) throws WriterException, QRcodeException, IOException {
+            String qrContent = String.format("OrderID: %s%nTotal Rs. %.2f%nCustomer: %s", orderId, totalAmount, customerName);
 
-        BitMatrix bitMatrix = qrCodeWriter.encode(qrContent, BarcodeFormat.QR_CODE, 250, 250);
+            BitMatrix bitMatrix = new QRCodeWriter().encode(qrContent, BarcodeFormat.QR_CODE, SIZE, SIZE);
+            BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
-        BufferedImage image = new BufferedImage(250, 250, BufferedImage.TYPE_INT_RGB);
-        for (int i = 0; i < 250; i++) {
-            for (int j = 0; j < 250; j++) {
-                image.setRGB(i, j, (bitMatrix.get(i, j) ? 0x000000 : 0xFFFFFF));
+            File directory = new File(SAVE_PATH);
+            if (!directory.exists()) {
+                directory.mkdirs();
             }
+
+            String filePath = SAVE_PATH + "/" + orderId + "." + FORMAT;
+            File outputFile = new File(filePath);
+            ImageIO.write(image, FORMAT, outputFile);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, FORMAT, baos);
+            return Base64.getEncoder().encodeToString(baos.toByteArray());
         }
-
-        String desktopPath = System.getProperty("user.home") + "/Desktop/qr-codes";
-        File dir = new File(desktopPath);
-        if (!dir.exists()) dir.mkdirs();
-
-        String filePath = desktopPath + "/" + orderId + ".png";
-        File qrFile = new File(filePath);
-
-        ImageIO.write(image, "png", qrFile);
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", baos);
-        byte[] imageBytes = baos.toByteArray();
-
-        return Base64.getEncoder().encodeToString(imageBytes);
-    }
 }
