@@ -64,8 +64,7 @@ GET    /orders             - List all orders
 
 🔹 QR Code Generation Endpoints
 -------------------------------------
-GET    /qr/{orderId}              - Get QR code as Base64 string  
-GET    /qr/download/{orderId}     - Download QR code image (PNG)
+GET    api/qr/base64         - Get QR code as Base64 string  
 
 ## ⚙️ How to Run
 
