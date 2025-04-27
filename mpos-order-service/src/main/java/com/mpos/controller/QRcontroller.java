@@ -2,10 +2,12 @@ package com.mpos.controller;
 
 import com.google.zxing.WriterException;
 import com.mpos.exception.QRcodeException;
+import com.mpos.exception.UsernameNotFoundException;
 import com.mpos.models.Product;
 import com.mpos.service.QRcodeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jdk.jshell.spi.ExecutionControl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ public class QRcontroller {
             @RequestParam String orderId,
             @RequestParam String customerName,
             @RequestParam double totalAmount
-            ) throws QRcodeException, WriterException, IOException {
+            ) throws QRcodeException, WriterException, IOException, UsernameNotFoundException, ExecutionControl.UserException {
         String base64 = qRcodeService.generateQRCodeBase64(orderId, customerName, totalAmount);
         return new ResponseEntity<>(base64, HttpStatus.OK);
     }
