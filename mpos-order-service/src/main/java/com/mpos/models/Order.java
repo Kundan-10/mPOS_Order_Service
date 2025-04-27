@@ -26,7 +26,7 @@ public class Order {
     private String customerName;
 
     @PositiveOrZero(message = "Total amount must be zero or positive")
-    private double totalAmount;
+    private Double totalAmount;
 
     private LocalDateTime dateTime;
 
